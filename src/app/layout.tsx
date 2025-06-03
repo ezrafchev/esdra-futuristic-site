@@ -1,4 +1,5 @@
 import './globals.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
 import Footer from '@/components/Footer'
@@ -6,8 +7,8 @@ import Footer from '@/components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Esdra | Software Engineer',
-  description: 'Personal portfolio showcasing software engineering projects and expertise',
+  title: 'Esdra | Engenheiro de Software',
+  description: 'Portfólio pessoal apresentando projetos e expertise em engenharia de software',
 }
 
 export default function RootLayout({
@@ -16,9 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="pt-BR" className="scroll-smooth">
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={`${inter.className} min-h-screen grid-pattern`}>
@@ -31,10 +31,10 @@ export default function RootLayout({
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-8">
-                  <a href="#about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                  <a href="#technologies" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Technologies</a>
-                  <a href="#projects" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
-                  <a href="#contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                  <a href="#about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Sobre</a>
+                  <a href="#technologies" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Tecnologias</a>
+                  <a href="#projects" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Projetos</a>
+                  <a href="#contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Contato</a>
                 </div>
               </div>
             </div>

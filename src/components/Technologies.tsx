@@ -64,9 +64,9 @@ export default function Technologies() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gradient mb-4">Technologies</h2>
+          <h2 className="text-4xl font-bold text-gradient mb-4">Tecnologias</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Leveraging cutting-edge technologies to build modern, scalable, and efficient solutions.
+            Utilizando tecnologias de ponta para construir soluções modernas, escaláveis e eficientes.
           </p>
         </motion.div>
 
@@ -118,17 +118,17 @@ export default function Technologies() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-16 glass-effect p-8 rounded-2xl"
         >
-          <h3 className="text-2xl font-semibold mb-6 text-gradient">Additional Expertise</h3>
+          <h3 className="text-2xl font-semibold mb-6 text-gradient">Conhecimentos Adicionais</h3>
           <div className="flex flex-wrap gap-4">
             {[
-              'UI/UX Design',
-              'Responsive Design',
-              'RESTful APIs',
-              'Microservices',
+              'Design de UI/UX',
+              'Design Responsivo',
+              'APIs RESTful',
+              'Microsserviços',
               'CI/CD',
               'Agile/Scrum',
-              'Test-Driven Development',
-              'Performance Optimization'
+              'Desenvolvimento Orientado a Testes',
+              'Otimização de Performance'
             ].map((skill, index) => (
               <motion.span
                 key={index}

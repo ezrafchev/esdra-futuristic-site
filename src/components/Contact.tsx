@@ -1,40 +1,31 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
+
+const socialLinks = [
+  {
+    name: 'GitHub',
+    url: 'https://github.com/ezrafchev',
+    icon: 'fab fa-github'
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/esdra-felipe-746425271',
+    icon: 'fab fa-linkedin'
+  },
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/EsdraFelipe95',
+    icon: 'fab fa-twitter'
+  },
+  {
+    name: 'Instagram',
+    url: 'https://instagram.com/esdraFSO',
+    icon: 'fab fa-instagram'
+  }
+]
 
 export default function Contact() {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    message: ''
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    setIsSubmitting(false)
-    setSubmitted(true)
-    setFormState({ name: '', email: '', message: '' })
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setSubmitted(false), 5000)
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
-
   return (
     <section id="contact" className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -43,157 +34,107 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-gradient mb-4">Get in Touch</h2>
+          <h2 className="text-4xl font-bold text-gradient mb-4">Contato</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Have a project in mind? Let's collaborate and create something amazing together.
+            Vamos trabalhar juntos? Entre em contato para discutirmos seu próximo projeto.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="glass-effect p-8 rounded-2xl"
           >
-            <div className="space-y-8">
-              <div className="glass-effect p-6 rounded-2xl hover-scale">
-                <h3 className="text-xl font-semibold mb-4 text-gradient">Contact Information</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 glass-effect rounded-full flex items-center justify-center">
-                      <i className="fas fa-envelope text-xl"></i>
-                    </div>
-                    <div>
-                      <p className="text-gray-400">Email</p>
-                      <a href="mailto:contact@esdra.dev" className="text-white hover:text-gray-300 transition-colors">
-                        contact@esdra.dev
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 glass-effect rounded-full flex items-center justify-center">
-                      <i className="fas fa-map-marker-alt text-xl"></i>
-                    </div>
-                    <div>
-                      <p className="text-gray-400">Location</p>
-                      <p className="text-white">São Paulo, Brazil</p>
-                    </div>
-                  </div>
-                </div>
+            <form className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-gray-300 mb-2">
+                  Nome
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full"
+                  placeholder="Seu nome"
+                />
               </div>
-
-              <div className="glass-effect p-6 rounded-2xl hover-scale">
-                <h3 className="text-xl font-semibold mb-4 text-gradient">Connect</h3>
-                <div className="flex space-x-4">
-                  <a
-                    href="https://github.com/ezrafchev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 glass-effect rounded-full flex items-center justify-center hover:bg-white/10 transition-colors"
-                  >
-                    <i className="fab fa-github text-xl"></i>
-                  </a>
-                  <a
-                    href="https://linkedin.com/in/esdra"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 glass-effect rounded-full flex items-center justify-center hover:bg-white/10 transition-colors"
-                  >
-                    <i className="fab fa-linkedin-in text-xl"></i>
-                  </a>
-                  <a
-                    href="https://twitter.com/esdra"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 glass-effect rounded-full flex items-center justify-center hover:bg-white/10 transition-colors"
-                  >
-                    <i className="fab fa-twitter text-xl"></i>
-                  </a>
-                </div>
+              <div>
+                <label htmlFor="email" className="block text-gray-300 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full"
+                  placeholder="seu@email.com"
+                />
               </div>
-            </div>
+              <div>
+                <label htmlFor="message" className="block text-gray-300 mb-2">
+                  Mensagem
+                </label>
+                <textarea
+                  id="message"
+                  rows={4}
+                  className="w-full"
+                  placeholder="Sua mensagem"
+                ></textarea>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg font-medium"
+              >
+                Enviar Mensagem
+              </motion.button>
+            </form>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="space-y-8"
           >
-            <form onSubmit={handleSubmit} className="glass-effect p-8 rounded-2xl space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-gray-400 mb-2">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
-                  placeholder="Your name"
-                />
+            <div className="glass-effect p-8 rounded-2xl">
+              <h3 className="text-2xl font-semibold mb-4">Informações de Contato</h3>
+              <div className="space-y-4">
+                <p className="flex items-center text-gray-300">
+                  <i className="fas fa-envelope mr-3 text-blue-400"></i>
+                  esdrafelipe1@gmail.com
+                </p>
+                <p className="flex items-center text-gray-300">
+                  <i className="fas fa-map-marker-alt mr-3 text-blue-400"></i>
+                  Vespasiano, MG, Brasil
+                </p>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-gray-400 mb-2">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-gray-400 mb-2">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors resize-none"
-                  placeholder="Your message..."
-                />
-              </div>
-              <motion.button
-                type="submit"
-                className="w-full glass-effect py-3 rounded-lg text-white font-medium relative overflow-hidden"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center">
-                    <i className="fas fa-circle-notch fa-spin mr-2"></i>
-                    Sending...
-                  </span>
-                ) : 'Send Message'}
-              </motion.button>
-              
-              {/* Success Message */}
-              <AnimatePresence>
-                {submitted && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="text-green-400 text-center"
+            </div>
+
+            <div className="glass-effect p-8 rounded-2xl">
+              <h3 className="text-2xl font-semibold mb-4">Redes Sociais</h3>
+              <div className="flex space-x-4">
+                {socialLinks.map((link) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white text-2xl transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    Message sent successfully!
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </form>
+                    <i className={link.icon}></i>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
