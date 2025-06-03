@@ -52,14 +52,18 @@ const TechCard = ({ name, description, icon, index }: Technology & { index: numb
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-xl bg-black/40 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 hover:shadow-2xl"
+      className="group relative overflow-hidden rounded-xl bg-black/40 p-8 backdrop-blur-sm transition-all duration-300 hover:bg-black/60"
     >
-      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/5 transition-transform duration-300 group-hover:scale-150" />
+      <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 transition-transform duration-500 ease-out group-hover:scale-150" />
+      <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-gradient-to-tr from-blue-500/10 to-purple-500/10 transition-transform duration-500 ease-out group-hover:scale-150" />
       <div className="relative z-10">
-        <span className="mb-4 block text-4xl">{icon}</span>
-        <h3 className="mb-2 text-xl font-semibold text-white">{name}</h3>
-        <p className="text-gray-300">{description}</p>
+        <div className="mb-6 inline-block rounded-lg bg-white/10 p-3">
+          <span className="text-4xl">{icon}</span>
+        </div>
+        <h3 className="mb-3 text-2xl font-bold text-white">{name}</h3>
+        <p className="text-lg text-gray-300">{description}</p>
       </div>
+      <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </motion.div>
   );
 };

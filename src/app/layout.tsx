@@ -1,22 +1,26 @@
-import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Esdra | Visionary Entrepreneur",
-  description: "Personal website of Esdra - A visionary passionate about technology, innovation, and faith in Jesus Christ.",
-};
+  title: 'Esdra - Desenvolvedor Visionário',
+  description: 'Site pessoal de Esdra - Desenvolvedor, Visionário e Arquiteto do Invisível',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="pt-BR">
-      <body className={spaceGrotesk.className}>{children}</body>
+      <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+      </head>
+      <body className={`${inter.className} bg-black text-white`}>{children}</body>
     </html>
-  );
+  )
 }

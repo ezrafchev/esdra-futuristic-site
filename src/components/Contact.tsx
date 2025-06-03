@@ -33,11 +33,13 @@ export default function Contact() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="rounded-xl bg-black/40 p-8 backdrop-blur-sm"
+          className="relative rounded-xl bg-black/40 p-8 backdrop-blur-sm overflow-hidden"
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="mb-2 block text-sm text-gray-300">
+          <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
+          <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-gradient-to-tr from-blue-500/10 to-purple-500/10" />
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+            <div className="group">
+              <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-300 transition-colors group-focus-within:text-blue-400">
                 Nome
               </label>
               <input
@@ -45,13 +47,13 @@ export default function Contact() {
                 id="name"
                 value={formState.name}
                 onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                className="w-full rounded-lg border border-gray-700 bg-black/40 px-4 py-2 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full rounded-lg border border-gray-700 bg-black/40 px-4 py-3 text-white placeholder-gray-500 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 placeholder="Seu nome"
                 required
               />
             </div>
-            <div>
-              <label htmlFor="email" className="mb-2 block text-sm text-gray-300">
+            <div className="group">
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-300 transition-colors group-focus-within:text-blue-400">
                 Email
               </label>
               <input
@@ -59,20 +61,20 @@ export default function Contact() {
                 id="email"
                 value={formState.email}
                 onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                className="w-full rounded-lg border border-gray-700 bg-black/40 px-4 py-2 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full rounded-lg border border-gray-700 bg-black/40 px-4 py-3 text-white placeholder-gray-500 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 placeholder="seu@email.com"
                 required
               />
             </div>
-            <div>
-              <label htmlFor="message" className="mb-2 block text-sm text-gray-300">
+            <div className="group">
+              <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-300 transition-colors group-focus-within:text-blue-400">
                 Mensagem
               </label>
               <textarea
                 id="message"
                 value={formState.message}
                 onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                className="h-32 w-full rounded-lg border border-gray-700 bg-black/40 px-4 py-2 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="h-32 w-full rounded-lg border border-gray-700 bg-black/40 px-4 py-3 text-white placeholder-gray-500 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 placeholder="Sua mensagem"
                 required
               />
@@ -81,11 +83,13 @@ export default function Contact() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
+              className="relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white transition-all hover:from-blue-600 hover:to-purple-600"
             >
-              Enviar Mensagem
+              <span className="relative z-10">Enviar Mensagem</span>
+              <div className="absolute inset-0 bg-white opacity-0 transition-opacity group-hover:opacity-10" />
             </motion.button>
           </form>
+          <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-50" />
         </motion.div>
       </div>
     </section>
