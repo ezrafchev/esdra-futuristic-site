@@ -1,91 +1,147 @@
-"use client";
+'use client'
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from 'framer-motion'
 
-interface Technology {
-  name: string;
-  description: string;
-  icon: string;
-}
-
-const technologies: Technology[] = [
+const technologies = [
   {
-    name: "Artificial Intelligence",
-    description: "Desenvolvimento de soluções inovadoras com IA",
-    icon: "🤖",
+    category: 'Frontend',
+    skills: [
+      { name: 'React', icon: 'fab fa-react', level: 90 },
+      { name: 'Next.js', icon: 'fas fa-next', level: 85 },
+      { name: 'TypeScript', icon: 'fas fa-code', level: 88 },
+      { name: 'Tailwind CSS', icon: 'fas fa-paint-brush', level: 92 },
+    ]
   },
   {
-    name: "Blockchain",
-    description: "Tecnologia descentralizada e segura",
-    icon: "⛓️",
+    category: 'Backend',
+    skills: [
+      { name: 'Node.js', icon: 'fab fa-node-js', level: 88 },
+      { name: 'Python', icon: 'fab fa-python', level: 85 },
+      { name: 'PostgreSQL', icon: 'fas fa-database', level: 82 },
+      { name: 'GraphQL', icon: 'fas fa-project-diagram', level: 80 },
+    ]
   },
   {
-    name: "Cloud Computing",
-    description: "Infraestrutura escalável e flexível",
-    icon: "☁️",
-  },
-  {
-    name: "IoT",
-    description: "Internet das Coisas e conectividade",
-    icon: "🌐",
-  },
-  {
-    name: "Cybersecurity",
-    description: "Proteção de dados e sistemas",
-    icon: "🔒",
-  },
-  {
-    name: "Big Data",
-    description: "Análise e processamento de dados em larga escala",
-    icon: "📊",
-  },
-];
-
-const TechCard = ({ name, description, icon, index }: Technology & { index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-xl bg-black/40 p-8 backdrop-blur-sm transition-all duration-300 hover:bg-black/60"
-    >
-      <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 transition-transform duration-500 ease-out group-hover:scale-150" />
-      <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-gradient-to-tr from-blue-500/10 to-purple-500/10 transition-transform duration-500 ease-out group-hover:scale-150" />
-      <div className="relative z-10">
-        <div className="mb-6 inline-block rounded-lg bg-white/10 p-3">
-          <span className="text-4xl">{icon}</span>
-        </div>
-        <h3 className="mb-3 text-2xl font-bold text-white">{name}</h3>
-        <p className="text-lg text-gray-300">{description}</p>
-      </div>
-      <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-    </motion.div>
-  );
-};
+    category: 'DevOps & Tools',
+    skills: [
+      { name: 'Docker', icon: 'fab fa-docker', level: 85 },
+      { name: 'Git', icon: 'fab fa-git-alt', level: 90 },
+      { name: 'AWS', icon: 'fab fa-aws', level: 82 },
+      { name: 'Linux', icon: 'fab fa-linux', level: 88 },
+    ]
+  }
+]
 
 export default function Technologies() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  }
+
   return (
-    <section id="tecnologias" className="relative min-h-screen w-full bg-black/20 py-20">
-      <div className="mx-auto max-w-7xl px-4">
-        <motion.h2
+    <section id="technologies" className="py-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-16 text-center text-4xl font-bold text-white"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          Tecnologias do Futuro
-        </motion.h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <h2 className="text-4xl font-bold text-gradient mb-4">Technologies</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Leveraging cutting-edge technologies to build modern, scalable, and efficient solutions.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-3 gap-8"
+        >
           {technologies.map((tech, index) => (
-            <TechCard key={tech.name} {...tech} index={index} />
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="glass-effect p-6 rounded-2xl hover-scale"
+            >
+              <h3 className="text-2xl font-semibold mb-6 text-gradient">{tech.category}</h3>
+              <div className="space-y-6">
+                {tech.skills.map((skill, skillIndex) => (
+                  <div key={skillIndex} className="relative">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center">
+                        <i className={`${skill.icon} text-xl text-gray-300 mr-3`}></i>
+                        <span className="text-gray-300">{skill.name}</span>
+                      </div>
+                      <span className="text-gray-400">{skill.level}%</span>
+                    </div>
+                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        {/* Additional Skills */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 glass-effect p-8 rounded-2xl"
+        >
+          <h3 className="text-2xl font-semibold mb-6 text-gradient">Additional Expertise</h3>
+          <div className="flex flex-wrap gap-4">
+            {[
+              'UI/UX Design',
+              'Responsive Design',
+              'RESTful APIs',
+              'Microservices',
+              'CI/CD',
+              'Agile/Scrum',
+              'Test-Driven Development',
+              'Performance Optimization'
+            ].map((skill, index) => (
+              <motion.span
+                key={index}
+                className="glass-effect px-4 py-2 rounded-full text-sm text-gray-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {skill}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }
