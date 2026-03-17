@@ -4,6 +4,7 @@ import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useScroll,
 import { ArrowRight, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import { useRef } from 'react'
 import Technologies from '@/components/Technologies'
+import ExecutionModel from '@/components/ExecutionModel'
 import Projects from '@/components/Projects'
 import Blog from '@/components/Blog'
 import Goals from '@/components/Goals'
@@ -75,7 +76,8 @@ export default function Home() {
             hidden: {},
             show: { transition: { staggerChildren: motionTokens.stagger.base, delayChildren: 0.05 } },
           }}
-        >
+>
+          <div className="mesh-backdrop" aria-hidden />
           <motion.div className="grid gap-10" variants={sequence} style={{ y: shouldReduceMotion ? 0 : messageYMotion }}>
             <p className="eyebrow inline-flex w-fit items-center gap-2 rounded-full border bg-[var(--accent-soft)] px-4 py-2">
               <Sparkles size={14} /> Produto digital premium, do conceito à escala
@@ -166,6 +168,7 @@ export default function Home() {
       </section>
 
       <Goals />
+      <ExecutionModel />
       <Technologies />
       <InnovationLab />
       <RealtimeMetrics />
