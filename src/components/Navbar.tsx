@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes'
 const navLinks = [
   { label: 'Sobre', href: '#about' },
   { label: 'Serviços', href: '#services' },
-  { label: 'Pagamento', href: '#services' },
+  { label: 'Pagamento', href: '#checkout' },
   { label: 'Tecnologias', href: '#technologies' },
   { label: 'Projetos', href: '#projects' },
   { label: 'Insights', href: '#blog' },

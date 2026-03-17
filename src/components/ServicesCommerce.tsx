@@ -59,24 +59,22 @@ export default function ServicesCommerce() {
   const shouldReduceMotion = useReducedMotion()
   const [checkoutStatus, setCheckoutStatus] = useState('')
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null)
+  const featuredService = services[0]
 
   const handleCheckout = (planId: PlanId, planName: string) => {
     setLoadingPlan(planId)
     setCheckoutStatus('')
 
-    try {
-      const checkoutUrl = paymentLinks[planId]
-      if (!checkoutUrl) {
-        setCheckoutStatus('Link de checkout ainda não configurado para este plano. Fale com nosso time para ativar.')
-        return
-      }
-      setCheckoutStatus(`Checkout "${planName}" aberto em uma nova aba.`)
-      window.open(checkoutUrl, '_blank', 'noopener,noreferrer')
-    } catch {
-      setCheckoutStatus('Não foi possível conectar ao checkout agora. Tente novamente em instantes.')
-    } finally {
+    const checkoutUrl = paymentLinks[planId]
+    if (!checkoutUrl) {
+      setCheckoutStatus('Link de checkout ainda não configurado para este plano. Fale com nosso time para ativar.')
       setLoadingPlan(null)
+      return
     }
+
+    setCheckoutStatus(`Checkout "${planName}" aberto em uma nova aba.`)
+    window.open(checkoutUrl, '_blank', 'noopener,noreferrer')
+    setLoadingPlan(null)
   }
 
   return (
@@ -130,23 +128,23 @@ export default function ServicesCommerce() {
                 ))}
               </div>
             </div>
-            <div className="token-card p-4">
+            <div id="checkout" className="token-card p-4">
               <p className="text-xs uppercase tracking-[0.15em] text-[var(--accent-400)]">Pagamento imediato</p>
               <p className="mt-2 flex items-center gap-2 text-sm text-[var(--neutral-200)]">
                 <QrCode size={15} className="text-[var(--success-500)]" /> Pix, cartão e boleto com confirmação automática.
               </p>
               <button
                 type="button"
-                onClick={() => handleCheckout('landing-express', 'Landing Page Express')}
-                disabled={loadingPlan === 'landing-express'}
+                onClick={() => handleCheckout(featuredService.id, featuredService.title)}
+                disabled={loadingPlan === featuredService.id}
                 className="btn-primary mt-4 w-full justify-center px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {loadingPlan === 'landing-express' ? 'Abrindo checkout...' : 'Solicitar checkout de contratação'}
+                {loadingPlan === featuredService.id ? 'Abrindo checkout...' : 'Solicitar checkout de contratação'}
               </button>
             </div>
           </div>
 
-          <div className="mt-4 token-card p-4">
+          <div className="token-card mt-4 p-4">
             <p className="text-xs uppercase tracking-[0.15em] text-[var(--accent-400)]">Recursos digitais incluídos</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {digitalResources.map((resource) => (
