@@ -18,6 +18,9 @@ const socialProof = [
 
 const trustBadges = ['ISO-ready architecture', 'LGPD by design', 'Deploy contínuo monitorado']
 
+
+const combineParallax = ([scroll, cursor]: [number, number], cursorWeight: number, scrollWeight = 1) => scroll * scrollWeight + cursor * cursorWeight
+
 export default function Home() {
   const heroRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
@@ -35,9 +38,9 @@ export default function Home() {
   const scrollLift = useTransform(scrollYProgress, [0, 1], [0, -38])
   const scrollDepth = useTransform(scrollYProgress, [0, 1], [0, 28])
 
-  const messageYMotion = useTransform([scrollLift, cursorDriftY], ([scroll, cursor]: number[]) => scroll + cursor * 0.35)
-  const visualYMotion = useTransform([scrollDepth, cursorDriftY], ([scroll, cursor]: number[]) => scroll + cursor * 0.6)
-  const proofYMotion = useTransform([scrollLift, cursorDriftY], ([scroll, cursor]: number[]) => scroll * 0.45 + cursor * 0.2)
+  const messageYMotion = useTransform([scrollLift, cursorDriftY], (values) => combineParallax(values as [number, number], 0.35))
+  const visualYMotion = useTransform([scrollDepth, cursorDriftY], (values) => combineParallax(values as [number, number], 0.6))
+  const proofYMotion = useTransform([scrollLift, cursorDriftY], (values) => combineParallax(values as [number, number], 0.2, 0.45))
   const visualXMotion = useTransform(cursorDriftX, (value) => value * 0.8)
 
   const heroGlow = useMotionTemplate`radial-gradient(700px circle at ${springPointerX}% ${springPointerY}%, color-mix(in oklab, var(--accent-500) 36%, transparent), transparent 62%)`
