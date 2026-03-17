@@ -10,6 +10,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Informe seu nome completo.'),
+  email: z.string().email('Informe um e-mail válido.'),
+  phone: z.string().optional(),
   company: z.string().min(2, 'Informe o nome da sua empresa.'),
   budget: z.string().min(1, 'Selecione uma faixa de orçamento.'),
   timeline: z.string().min(1, 'Defina o prazo desejado.'),
@@ -21,6 +23,8 @@ type SubmitState = 'idle' | 'sending' | 'success' | 'error'
 
 const steps: Array<{ key: keyof ContactFormData; title: string; description: string }> = [
   { key: 'name', title: 'Qual é o seu nome?', description: 'Vamos começar com uma apresentação rápida.' },
+  { key: 'email', title: 'Qual é o seu e-mail?', description: 'Usaremos para enviar o retorno inicial do projeto.' },
+  { key: 'phone', title: 'Qual é o seu telefone?', description: 'Opcional — para entrarmos em contato mais rapidamente.' },
   { key: 'company', title: 'Qual é a empresa/projeto?', description: 'Isso ajuda a contextualizar o segmento.' },
   { key: 'budget', title: 'Qual orçamento estimado?', description: 'Escolha a faixa para calibrarmos o escopo ideal.' },
   { key: 'timeline', title: 'Qual prazo para entrega?', description: 'Entender o timing ajuda a priorizar o plano de execução.' },
@@ -89,6 +93,8 @@ export default function Contact() {
     mode: 'onTouched',
     defaultValues: {
       name: '',
+      email: '',
+      phone: '',
       company: '',
       budget: '',
       timeline: '',
@@ -121,6 +127,19 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
+
+      if (response.status === 404) {
+        // API not available (static export) — open mailto as fallback
+        const subject = encodeURIComponent(`Contato: ${data.name} — ${data.company}`)
+        const body = encodeURIComponent(
+          `Nome: ${data.name}\nE-mail: ${data.email}\nTelefone: ${data.phone || '—'}\nEmpresa: ${data.company}\nOrçamento: ${data.budget}\nPrazo: ${data.timeline}\n\nObjetivo:\n${data.goal}`,
+        )
+        window.location.href = `mailto:contato@esdrastudio.com?subject=${subject}&body=${body}`
+        setSubmitState('success')
+        reset()
+        setStep(0)
+        return
+      }
 
       if (!response.ok) {
         throw new Error('contact_submit_failed')
@@ -169,6 +188,24 @@ export default function Contact() {
                   <input
                     {...register('name')}
                     placeholder="Ex.: João Silva"
+                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
+                  />
+                )}
+
+                {activeStep.key === 'email' && (
+                  <input
+                    {...register('email')}
+                    type="email"
+                    placeholder="Ex.: joao@empresa.com"
+                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
+                  />
+                )}
+
+                {activeStep.key === 'phone' && (
+                  <input
+                    {...register('phone')}
+                    type="tel"
+                    placeholder="Ex.: (11) 99999-9999"
                     className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
                   />
                 )}

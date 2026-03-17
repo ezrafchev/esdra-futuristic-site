@@ -2,8 +2,6 @@
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true'
 
 const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -16,6 +14,8 @@ const nextConfig = {
   },
   ...(isGithubActions
     ? {
+        output: 'export',
+        trailingSlash: true,
         basePath: '/esdra-futuristic-site',
         assetPrefix: '/esdra-futuristic-site',
       }
