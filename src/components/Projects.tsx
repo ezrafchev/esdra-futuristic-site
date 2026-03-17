@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { motionTokens } from '@/lib/theme'
 
 const projects = [
   {
@@ -22,10 +23,10 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="px-4 py-20 md:px-8">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="text-3xl font-semibold text-white md:text-4xl">Projetos em destaque</h2>
-        <p className="mt-4 max-w-2xl text-slate-300">
+    <section id="projects" className="section-shell">
+      <div className="section-container">
+        <h2 className="title-headline">Projetos em destaque</h2>
+        <p className="text-muted mt-4 max-w-2xl">
           Cases orientados por resultados mensuráveis, com impacto em experiência, eficiência operacional e crescimento de receita.
         </p>
 
@@ -36,15 +37,15 @@ export default function Projects() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8"
+              transition={{ delay: index * motionTokens.stagger.tight, duration: motionTokens.duration.base }}
+              className="token-card p-6 md:p-8"
             >
               <div className="flex flex-col justify-between gap-5 md:flex-row md:items-center">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">{project.name}</h3>
-                  <p className="mt-2 text-slate-300">{project.summary}</p>
+                  <h3 className="text-xl font-semibold">{project.name}</h3>
+                  <p className="text-muted mt-2">{project.summary}</p>
                 </div>
-                <p className="rounded-full border border-emerald-400/35 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
+                <p className="rounded-full border px-4 py-2 text-sm text-[var(--success-500)]" style={{ background: 'var(--success-soft)' }}>
                   {project.result}
                 </p>
               </div>
