@@ -116,10 +116,14 @@ export default function Contact() {
       setSubmitState('sending')
       trackConversion('contact_form_submit', { budget: data.budget, timeline: data.timeline })
 
-      await new Promise((resolve) => setTimeout(resolve, 900))
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
 
-      if (!navigator.onLine) {
-        throw new Error('offline')
+      if (!response.ok) {
+        throw new Error('contact_submit_failed')
       }
 
       setSubmitState('success')
