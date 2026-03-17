@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes'
 const navLinks = [
   { label: 'Sobre', href: '#about' },
   { label: 'Serviços', href: '#services' },
+  { label: 'Pagamento', href: '#checkout' },
   { label: 'Tecnologias', href: '#technologies' },
   { label: 'Projetos', href: '#projects' },
   { label: 'Insights', href: '#blog' },
@@ -41,7 +42,7 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-sm text-[var(--neutral-200)] transition hover:text-[var(--neutral-100)]">
+            <a key={`${link.href}-${link.label}`} href={link.href} className="text-sm text-[var(--neutral-200)] transition hover:text-[var(--neutral-100)]">
               {link.label}
             </a>
           ))}
@@ -79,7 +80,7 @@ export default function Navbar() {
         <nav className="section-container mt-2 rounded-[var(--radius-card)] border bg-[var(--surface-1)] p-4 backdrop-blur md:hidden">
           {navLinks.map((link) => (
             <a
-              key={link.href}
+              key={`${link.href}-${link.label}`}
               href={link.href}
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2 text-sm text-[var(--neutral-200)] transition hover:bg-[var(--surface-glass)] hover:text-[var(--neutral-100)]"
