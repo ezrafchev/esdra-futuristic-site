@@ -8,6 +8,9 @@ import Projects from '@/components/Projects'
 import Blog from '@/components/Blog'
 import Goals from '@/components/Goals'
 import Contact from '@/components/Contact'
+import InnovationLab from '@/components/InnovationLab'
+import RealtimeMetrics from '@/components/RealtimeMetrics'
+import ArchitectureShowcase from '@/components/ArchitectureShowcase'
 import { motionTokens } from '@/lib/theme'
 
 const socialProof = [
@@ -164,10 +167,12 @@ export default function Home() {
 
       <Goals />
       <Technologies />
+      <InnovationLab />
+      <RealtimeMetrics />
+      <ArchitectureShowcase />
       <Projects />
       <Blog />
       <Contact />
     </div>
   )
 }
-
