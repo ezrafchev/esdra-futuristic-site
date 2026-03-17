@@ -43,6 +43,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('[/api/contact]', error)
-    return NextResponse.json({ error: 'Não foi possível processar seu contato agora.' }, { status: 500 })
+    return NextResponse.json({ error: 'Erro ao enviar contato no momento.' }, { status: 500 })
   }
 }

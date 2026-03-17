@@ -86,6 +86,6 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('[/api/payment]', error)
-    return NextResponse.json({ error: 'Não foi possível abrir o checkout agora.' }, { status: 500 })
+    return NextResponse.json({ error: 'Erro interno ao processar checkout.' }, { status: 500 })
   }
 }

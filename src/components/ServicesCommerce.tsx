@@ -92,7 +92,8 @@ export default function ServicesCommerce() {
       const methodLabel = payload.methodLabel ?? paymentMethodLabels[paymentMethod]
       setCheckoutStatus(`Checkout "${planName}" (${methodLabel}) aberto em uma nova aba.`)
       window.open(payload.checkoutUrl, '_blank', 'noopener,noreferrer')
-    } catch {
+    } catch (error) {
+      console.error('[checkout]', error)
       setCheckoutStatus('Não foi possível abrir o checkout agora. Tente novamente em instantes.')
     } finally {
       setLoadingPlan(null)
