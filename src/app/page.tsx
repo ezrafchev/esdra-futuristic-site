@@ -78,6 +78,7 @@ export default function Home() {
           }}
 >
           <div className="mesh-backdrop" aria-hidden />
+          <div className="dot-grid" aria-hidden />
           <motion.div className="grid gap-10" variants={sequence} style={{ y: shouldReduceMotion ? 0 : messageYMotion }}>
             <p className="eyebrow inline-flex w-fit items-center gap-2 rounded-full border bg-[var(--accent-soft)] px-4 py-2">
               <Sparkles size={14} /> Produto digital premium, do conceito à escala

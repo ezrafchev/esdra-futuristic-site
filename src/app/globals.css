@@ -16,6 +16,7 @@
 
   --accent-500: #7c94ff;
   --accent-400: #93c5fd;
+  --accent-300: #bae6fd;
   --accent-soft: rgba(124, 148, 255, 0.15);
   --accent-glow: rgba(124, 148, 255, 0.4);
 
@@ -62,6 +63,7 @@
 
   --accent-500: #4f46e5;
   --accent-400: #6366f1;
+  --accent-300: #818cf8;
   --accent-soft: rgba(99, 102, 241, 0.14);
   --accent-glow: rgba(99, 102, 241, 0.35);
 
@@ -96,6 +98,22 @@ body {
   color: var(--neutral-100);
   font-size: var(--font-body);
   transition: background-color var(--motion-base) var(--motion-ease-smooth), color var(--motion-base) var(--motion-ease-smooth);
+}
+
+/* Thin scrollbar for AI panel */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.18) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.18);
+  border-radius: 9999px;
 }
 
 @layer components {
@@ -190,6 +208,23 @@ body {
     opacity: 0.78;
   }
 
+  /* Subtle dot grid — Tesla/SpaceX aesthetic */
+  .dot-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(148,163,184,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.3) 80%, transparent 100%);
+  }
+
+  /* AI panel glow ring */
+  .ai-panel {
+    box-shadow:
+      0 0 0 1px rgba(124, 148, 255, 0.08),
+      0 32px 80px rgba(2, 6, 23, 0.7),
+      0 0 60px rgba(124, 148, 255, 0.06);
+  }
 }
 
 
