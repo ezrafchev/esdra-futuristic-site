@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { motionTokens } from '@/lib/theme'
 
 const insights = [
   {
@@ -19,10 +20,10 @@ const insights = [
 
 export default function Blog() {
   return (
-    <section id="blog" className="px-4 py-20 md:px-8">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="text-3xl font-semibold text-white md:text-4xl">Insights estratégicos</h2>
-        <p className="mt-4 max-w-2xl text-slate-300">
+    <section id="blog" className="section-shell">
+      <div className="section-container">
+        <h2 className="title-headline">Insights estratégicos</h2>
+        <p className="text-muted mt-4 max-w-2xl">
           Conteúdo técnico e executivo para decisões mais inteligentes em produto, design e engenharia.
         </p>
 
@@ -33,11 +34,11 @@ export default function Blog() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.12 }}
-              className="rounded-2xl border border-white/10 bg-slate-900/55 p-6"
+              transition={{ delay: index * motionTokens.stagger.base, duration: motionTokens.duration.base }}
+              className="token-card p-6"
             >
-              <h3 className="text-lg font-semibold text-white">{insight.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-300">{insight.excerpt}</p>
+              <h3 className="text-lg font-semibold">{insight.title}</h3>
+              <p className="text-muted mt-3 text-sm leading-relaxed">{insight.excerpt}</p>
             </motion.article>
           ))}
         </div>

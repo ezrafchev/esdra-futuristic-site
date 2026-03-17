@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { motionTokens } from '@/lib/theme'
 
 const pillars = [
   {
@@ -22,13 +23,11 @@ const pillars = [
 
 export default function Goals() {
   return (
-    <section id="about" className="px-4 py-20 md:px-8">
-      <div className="mx-auto max-w-6xl">
+    <section id="about" className="section-shell">
+      <div className="section-container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="mb-3 text-sm uppercase tracking-[0.2em] text-cyan-300">Sobre</p>
-          <h2 className="max-w-3xl text-3xl font-semibold text-white md:text-4xl">
-            Desenvolvimento com visão de negócio, excelência técnica e impacto real no mercado.
-          </h2>
+          <p className="eyebrow mb-3">Sobre</p>
+          <h2 className="title-headline max-w-3xl">Desenvolvimento com visão de negócio, excelência técnica e impacto real no mercado.</h2>
         </motion.div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -38,11 +37,11 @@ export default function Goals() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.12 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6"
+              transition={{ delay: index * motionTokens.stagger.base, duration: motionTokens.duration.base }}
+              className="token-card p-6"
             >
-              <h3 className="text-lg font-semibold text-white">{pillar.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-300">{pillar.description}</p>
+              <h3 className="text-lg font-semibold">{pillar.title}</h3>
+              <p className="text-muted mt-3 text-sm leading-relaxed">{pillar.description}</p>
             </motion.article>
           ))}
         </div>
