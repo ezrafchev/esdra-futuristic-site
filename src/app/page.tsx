@@ -1,14 +1,18 @@
 'use client'
 
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { ArrowRight, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import { useRef } from 'react'
-import Technologies from '@/components/Technologies'
-import Projects from '@/components/Projects'
-import Blog from '@/components/Blog'
-import Goals from '@/components/Goals'
-import Contact from '@/components/Contact'
 import { motionTokens } from '@/lib/theme'
+import { useIsMobile } from '@/hooks/use-mobile'
+
+const Goals = dynamic(() => import('@/components/Goals'))
+const Technologies = dynamic(() => import('@/components/Technologies'))
+const Projects = dynamic(() => import('@/components/Projects'))
+const Blog = dynamic(() => import('@/components/Blog'))
+const Contact = dynamic(() => import('@/components/Contact'))
 
 const socialProof = [
   { name: 'Atlas Ventures', metric: '+42% conversão em 90 dias' },
@@ -18,10 +22,11 @@ const socialProof = [
 
 const trustBadges = ['ISO-ready architecture', 'LGPD by design', 'Deploy contínuo monitorado']
 
-
 export default function Home() {
   const heroRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
+  const isMobile = useIsMobile()
+  const lowMotionMode = shouldReduceMotion || isMobile
 
   const pointerX = useMotionValue(50)
   const pointerY = useMotionValue(50)
@@ -44,7 +49,7 @@ export default function Home() {
   const heroGlow = useMotionTemplate`radial-gradient(700px circle at ${springPointerX}% ${springPointerY}%, color-mix(in oklab, var(--accent-500) 36%, transparent), transparent 62%)`
 
   const sequence = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+    hidden: { opacity: 0, y: lowMotionMode ? 0 : 24 },
     show: {
       opacity: 1,
       y: 0,
@@ -58,7 +63,7 @@ export default function Home() {
         ref={heroRef}
         className="section-shell pb-24 pt-36 md:pt-40"
         onMouseMove={(event) => {
-          if (shouldReduceMotion) return
+          if (lowMotionMode) return
           const bounds = event.currentTarget.getBoundingClientRect()
           pointerX.set(((event.clientX - bounds.left) / bounds.width) * 100)
           pointerY.set(((event.clientY - bounds.top) / bounds.height) * 100)
@@ -66,7 +71,7 @@ export default function Home() {
       >
         <motion.div
           className="section-container relative overflow-hidden rounded-[var(--radius-panel)] border border-[var(--border-soft)] bg-[var(--surface-1)]/70 p-6 backdrop-blur-xl md:p-10"
-          style={shouldReduceMotion ? { background: 'var(--surface-1)' } : { backgroundImage: heroGlow }}
+          style={lowMotionMode ? { background: 'var(--surface-1)' } : { backgroundImage: heroGlow }}
           initial="hidden"
           animate="show"
           variants={{
@@ -74,7 +79,7 @@ export default function Home() {
             show: { transition: { staggerChildren: motionTokens.stagger.base, delayChildren: 0.05 } },
           }}
         >
-          <motion.div className="grid gap-10" variants={sequence} style={{ y: shouldReduceMotion ? 0 : messageYMotion }}>
+          <motion.div className="grid gap-10" variants={sequence} style={{ y: lowMotionMode ? 0 : messageYMotion }}>
             <p className="eyebrow inline-flex w-fit items-center gap-2 rounded-full border bg-[var(--accent-soft)] px-4 py-2">
               <Sparkles size={14} /> Produto digital premium, do conceito à escala
             </p>
@@ -87,24 +92,24 @@ export default function Home() {
             <div className="flex flex-wrap gap-4">
               <motion.a
                 href="#projects"
-                className="btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-400)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-0)]"
-                whileHover={shouldReduceMotion ? {} : { y: -2, scale: 1.01 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.98, y: 0 }}
+                className="btn-primary"
+                whileHover={lowMotionMode ? {} : { y: -2, scale: 1.01 }}
+                whileTap={lowMotionMode ? {} : { scale: 0.98, y: 0 }}
               >
                 Ver projetos estratégicos <ArrowRight size={17} />
               </motion.a>
               <motion.a
                 href="#contact"
-                className="btn-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-400)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-0)]"
-                whileHover={shouldReduceMotion ? {} : { y: -2 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.98, y: 0 }}
+                className="btn-secondary"
+                whileHover={lowMotionMode ? {} : { y: -2 }}
+                whileTap={lowMotionMode ? {} : { scale: 0.98, y: 0 }}
               >
                 Agendar diagnóstico
               </motion.a>
             </div>
           </motion.div>
 
-          <motion.div variants={sequence} style={{ x: shouldReduceMotion ? 0 : visualXMotion, y: shouldReduceMotion ? 0 : visualYMotion }} className="mt-12">
+          <motion.div variants={sequence} style={{ x: lowMotionMode ? 0 : visualXMotion, y: lowMotionMode ? 0 : visualYMotion }} className="mt-12">
             <div className="glass-panel relative overflow-hidden p-6 md:p-8">
               <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[var(--accent-soft)] blur-2xl" aria-hidden />
               <div className="absolute -bottom-12 left-8 h-32 w-32 rounded-full bg-[var(--success-soft)] blur-2xl" aria-hidden />
@@ -115,7 +120,7 @@ export default function Home() {
                   <div className="mt-6 h-2 rounded-full bg-[var(--surface-glass)]">
                     <motion.div
                       className="h-full rounded-full bg-[var(--accent-500)]"
-                      initial={{ width: shouldReduceMotion ? '68%' : '0%' }}
+                      initial={{ width: lowMotionMode ? '68%' : '0%' }}
                       animate={{ width: '68%' }}
                       transition={{ duration: motionTokens.duration.slow, delay: 0.35, ease: motionTokens.easing.smooth }}
                     />
@@ -132,12 +137,20 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              <Image
+                src="/globe.svg"
+                alt="Ilustração de alcance global"
+                width={56}
+                height={56}
+                className="absolute bottom-6 right-6 opacity-70"
+                priority
+              />
             </div>
           </motion.div>
 
           <motion.div
             variants={sequence}
-            style={{ y: shouldReduceMotion ? 0 : proofYMotion }}
+            style={{ y: lowMotionMode ? 0 : proofYMotion }}
             className="mt-10 flex flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-glass)] p-4 md:flex-row md:items-center md:justify-between md:p-5"
           >
             <div className="flex flex-wrap items-center gap-4 md:gap-6">
@@ -171,4 +184,3 @@ export default function Home() {
     </div>
   )
 }
-

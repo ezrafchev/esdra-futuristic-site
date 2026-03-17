@@ -12,7 +12,7 @@
   --surface-0: #020617;
   --surface-1: rgba(15, 23, 42, 0.8);
   --surface-2: rgba(15, 23, 42, 0.56);
-  --surface-glass: rgba(148, 163, 184, 0.08);
+  --surface-glass: rgba(148, 163, 184, 0.13);
 
   --accent-500: #7c94ff;
   --accent-400: #93c5fd;
@@ -24,8 +24,8 @@
   --warning-soft: rgba(251, 191, 36, 0.14);
 
   --neutral-100: #f8fafc;
-  --neutral-200: #cbd5e1;
-  --neutral-300: #94a3b8;
+  --neutral-200: #dbe7f7;
+  --neutral-300: #b2c1d6;
 
   --border-soft: rgba(148, 163, 184, 0.2);
   --border-strong: rgba(148, 163, 184, 0.36);
@@ -57,7 +57,7 @@
   --surface-0: #f8fafc;
   --surface-1: rgba(255, 255, 255, 0.9);
   --surface-2: rgba(241, 245, 249, 0.86);
-  --surface-glass: rgba(15, 23, 42, 0.04);
+  --surface-glass: rgba(15, 23, 42, 0.06);
 
   --accent-500: #4f46e5;
   --accent-400: #6366f1;
@@ -69,8 +69,8 @@
   --warning-soft: rgba(217, 119, 6, 0.14);
 
   --neutral-100: #0f172a;
-  --neutral-200: #334155;
-  --neutral-300: #475569;
+  --neutral-200: #1e293b;
+  --neutral-300: #334155;
 
   --border-soft: rgba(51, 65, 85, 0.16);
   --border-strong: rgba(51, 65, 85, 0.24);
@@ -87,6 +87,40 @@
 html,
 body {
   min-height: 100vh;
+}
+
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  z-index: 70;
+  border-radius: 0.5rem;
+  background: var(--neutral-100);
+  color: var(--surface-0);
+  padding: 0.65rem 1rem;
+  transform: translateY(-200%);
+  transition: transform var(--motion-fast) var(--motion-ease-standard);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-400);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent-500) 28%, transparent);
+}
+
+main:focus {
+  outline: none;
 }
 
 body {
@@ -176,5 +210,23 @@ body {
     --space-section: clamp(5.5rem, 9vw, 8rem);
     --radius-card: 1.5rem;
     --radius-panel: 2rem;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .glass-panel {
+    backdrop-filter: blur(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
