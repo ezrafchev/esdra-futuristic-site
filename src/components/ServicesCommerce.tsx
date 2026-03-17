@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { motionTokens } from '@/lib/theme'
 
 type PlanId = 'landing-express' | 'funnel-crm' | 'automation-pro' | 'ecommerce-growth' | 'platform-custom'
+type PaymentMethod = 'pix' | 'card' | 'boleto' | 'recurring'
 
 const services: Array<{ id: PlanId; title: string; price: string; description: string; icon: typeof Rocket }> = [
   {
@@ -47,34 +48,55 @@ const services: Array<{ id: PlanId; title: string; price: string; description: s
 
 const salesTools = ['Checkout por link', 'Pix com QR Code', 'Cartão em até 12x', 'Boleto e recorrência', 'Dashboard de receita']
 const digitalResources = ['Portal do cliente', 'Assinatura digital de proposta', 'Alertas com IA', 'Métricas em tempo real']
-const paymentLinks: Record<PlanId, string | undefined> = {
-  'landing-express': process.env.NEXT_PUBLIC_PAYMENT_LINK_LANDING_EXPRESS,
-  'funnel-crm': process.env.NEXT_PUBLIC_PAYMENT_LINK_FUNNEL_CRM,
-  'automation-pro': process.env.NEXT_PUBLIC_PAYMENT_LINK_AUTOMATION_PRO,
-  'ecommerce-growth': process.env.NEXT_PUBLIC_PAYMENT_LINK_ECOMMERCE_GROWTH,
-  'platform-custom': process.env.NEXT_PUBLIC_PAYMENT_LINK_PLATFORM_CUSTOM,
+const paymentMethodOptions: Array<{ id: PaymentMethod; label: string }> = [
+  { id: 'pix', label: 'Pix' },
+  { id: 'card', label: 'Cartão' },
+  { id: 'boleto', label: 'Boleto' },
+  { id: 'recurring', label: 'Recorrência' },
+]
+
+const paymentMethodLabels: Record<PaymentMethod, string> = {
+  pix: 'Pix',
+  card: 'Cartão',
+  boleto: 'Boleto',
+  recurring: 'Recorrência',
 }
 
 export default function ServicesCommerce() {
   const shouldReduceMotion = useReducedMotion()
   const [checkoutStatus, setCheckoutStatus] = useState('')
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('pix')
   const featuredService = services[0]
 
-  const handleCheckout = (planId: PlanId, planName: string) => {
+  const handleCheckout = async (planId: PlanId, planName: string) => {
     setLoadingPlan(planId)
     setCheckoutStatus('')
 
-    const checkoutUrl = paymentLinks[planId]
-    if (!checkoutUrl) {
-      setCheckoutStatus('Link de checkout ainda não configurado para este plano. Fale com nosso time para ativar.')
-      setLoadingPlan(null)
-      return
-    }
+    try {
+      const response = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId, paymentMethod }),
+      })
 
-    setCheckoutStatus(`Checkout "${planName}" aberto em uma nova aba.`)
-    window.open(checkoutUrl, '_blank', 'noopener,noreferrer')
-    setLoadingPlan(null)
+      if (!response.ok) {
+        throw new Error('checkout_unavailable')
+      }
+
+      const payload = (await response.json()) as { checkoutUrl?: string; methodLabel?: string }
+      if (!payload.checkoutUrl) {
+        throw new Error('checkout_url_missing')
+      }
+
+      const methodLabel = payload.methodLabel ?? paymentMethodLabels[paymentMethod]
+      setCheckoutStatus(`Checkout "${planName}" (${methodLabel}) aberto em uma nova aba.`)
+      window.open(payload.checkoutUrl, '_blank', 'noopener,noreferrer')
+    } catch {
+      setCheckoutStatus('Não foi possível abrir o checkout agora. Tente novamente em instantes.')
+    } finally {
+      setLoadingPlan(null)
+    }
   }
 
   return (
@@ -85,6 +107,23 @@ export default function ServicesCommerce() {
           <h2 id="services-title" className="title-headline mt-4 max-w-3xl">
             5 serviços simples para vender mais, do primeiro lead ao pagamento aprovado.
           </h2>
+          <div className="mt-6 max-w-sm">
+            <label htmlFor="payment-method" className="text-xs uppercase tracking-[0.14em] text-[var(--neutral-300)]">
+              Meio de pagamento
+            </label>
+            <select
+              id="payment-method"
+              value={paymentMethod}
+              onChange={(event) => setPaymentMethod(event.target.value as PaymentMethod)}
+              className="mt-2 w-full rounded-md border border-white/15 bg-slate-900 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
+            >
+              {paymentMethodOptions.map((method) => (
+                <option key={method.id} value={method.id}>
+                  {method.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
             {services.map((service, index) => {
