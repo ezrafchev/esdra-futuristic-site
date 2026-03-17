@@ -24,6 +24,18 @@ npm run dev
 npm run build
 ```
 
+## Payment Checkout
+
+Configure payment links in `.env.local` to enable checkout by plan directly from the site:
+
+```bash
+NEXT_PUBLIC_PAYMENT_LINK_LANDING_EXPRESS=
+NEXT_PUBLIC_PAYMENT_LINK_FUNNEL_CRM=
+NEXT_PUBLIC_PAYMENT_LINK_AUTOMATION_PRO=
+NEXT_PUBLIC_PAYMENT_LINK_ECOMMERCE_GROWTH=
+NEXT_PUBLIC_PAYMENT_LINK_PLATFORM_CUSTOM=
+```
+
 ## Deployment
 
 The site is automatically deployed to GitHub Pages using GitHub Actions. Every push to the `main` branch triggers a new deployment.
