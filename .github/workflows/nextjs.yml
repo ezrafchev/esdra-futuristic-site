@@ -1,76 +1,62 @@
-diff --git a/.github/workflows/nextjs.yml b/.github/workflows/nextjs.yml
-index 3b5e745d172669aff01af9c515d42abb4492dfb7..3e3686cf7d00def080bd50519ec98f47823af3f1 100644
---- a/.github/workflows/nextjs.yml
-+++ b/.github/workflows/nextjs.yml
-@@ -1,61 +1,62 @@
- name: Deploy Next.js site to Pages
- 
- on:
-   push:
--    branches: ["main"]
-+    branches: ['main']
-   workflow_dispatch:
- 
- permissions:
-   contents: read
-   pages: write
-   id-token: write
- 
- concurrency:
--  group: "pages"
-+  group: pages
-   cancel-in-progress: true
- 
-+env:
-+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-+
- jobs:
-   build:
-     runs-on: ubuntu-latest
-     steps:
-       - name: Checkout
-         uses: actions/checkout@v4
- 
-       - name: Setup Node
-         uses: actions/setup-node@v4
-         with:
--          node-version: "20"
-+          node-version: '22'
-           cache: 'npm'
- 
-       - name: Setup Pages
-         uses: actions/configure-pages@v4
- 
--      - name: Create .nojekyll file
--        run: touch .nojekyll
--
-       - name: Install dependencies
--        run: |
--          npm install
--          npm install typed.js @types/typed.js framer-motion --legacy-peer-deps
-+        run: npm ci
- 
-       - name: Build with Next.js
-         run: npm run build
-         env:
-           NODE_ENV: production
-           NEXT_PUBLIC_BASE_PATH: /esdra-futuristic-site
- 
-+      - name: Ensure .nojekyll in static output
-+        run: touch out/.nojekyll
-+
-       - name: Upload artifact
-         uses: actions/upload-pages-artifact@v3
-         with:
-           path: ./out
- 
-   deploy:
-     environment:
-       name: github-pages
-       url: ${{ steps.deployment.outputs.page_url }}
-     runs-on: ubuntu-latest
-     needs: build
-     steps:
-       - name: Deploy to GitHub Pages
-         id: deployment
-         uses: actions/deploy-pages@v4
+name: Deploy Next.js site to Pages
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Next.js
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_BASE_PATH: /esdra-futuristic-site
+
+      - name: Ensure .nojekyll in static output
+        run: touch out/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
