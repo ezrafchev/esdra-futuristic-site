@@ -21,7 +21,6 @@ const socialProof = [
 
 const trustBadges = ['ISO-ready architecture', 'LGPD by design', 'Deploy contínuo monitorado']
 
-
 export default function Home() {
   const heroRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
