@@ -153,7 +153,7 @@ export default function Contact() {
             </div>
 
             <div className="h-2 overflow-hidden rounded-full bg-white/10">
-              <div className="h-full rounded-full bg-[var(--primary-400)] transition-all" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
+              <div className="h-full rounded-full bg-[var(--accent-400)] transition-all" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
             </div>
 
             <div className="token-card mt-6 p-6">
@@ -165,7 +165,7 @@ export default function Contact() {
                   <input
                     {...register('name')}
                     placeholder="Ex.: João Silva"
-                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--primary-400)]"
+                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
                   />
                 )}
 
@@ -173,14 +173,14 @@ export default function Contact() {
                   <input
                     {...register('company')}
                     placeholder="Ex.: Atlas Ventures"
-                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--primary-400)]"
+                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
                   />
                 )}
 
                 {activeStep.key === 'budget' && (
                   <select
                     {...register('budget')}
-                    className="w-full rounded-md border border-white/15 bg-slate-900 px-4 py-3 text-sm outline-none focus:border-[var(--primary-400)]"
+                    className="w-full rounded-md border border-white/15 bg-slate-900 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
                   >
                     <option value="">Selecione uma opção</option>
                     <option value="10k-25k">R$ 10k — R$ 25k</option>
@@ -192,7 +192,7 @@ export default function Contact() {
                 {activeStep.key === 'timeline' && (
                   <select
                     {...register('timeline')}
-                    className="w-full rounded-md border border-white/15 bg-slate-900 px-4 py-3 text-sm outline-none focus:border-[var(--primary-400)]"
+                    className="w-full rounded-md border border-white/15 bg-slate-900 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
                   >
                     <option value="">Selecione uma opção</option>
                     <option value="2-4-semanas">2 a 4 semanas</option>
@@ -206,7 +206,7 @@ export default function Contact() {
                     {...register('goal')}
                     rows={4}
                     placeholder="Ex.: aumentar leads qualificados e reduzir custo por aquisição com um novo fluxo de onboarding"
-                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--primary-400)]"
+                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm outline-none focus:border-[var(--accent-400)]"
                   />
                 )}
 
@@ -273,7 +273,7 @@ export default function Contact() {
               {testimonials.map((item) => (
                 <article key={item.author} className="rounded-lg border border-white/10 bg-white/5 p-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex size-10 items-center justify-center rounded-full bg-[var(--primary-500)]/30 text-sm font-semibold">{item.avatar}</div>
+                    <div className="flex size-10 items-center justify-center rounded-full bg-[var(--accent-500)]/30 text-sm font-semibold">{item.avatar}</div>
                     <div>
                       <p className="text-sm font-semibold">{item.author}</p>
                       <p className="text-muted text-xs">{item.role}</p>

@@ -17,6 +17,7 @@
   --accent-500: #7c94ff;
   --accent-400: #93c5fd;
   --accent-soft: rgba(124, 148, 255, 0.15);
+  --accent-glow: rgba(124, 148, 255, 0.4);
 
   --success-500: #34d399;
   --success-soft: rgba(52, 211, 153, 0.14);
@@ -62,6 +63,7 @@
   --accent-500: #4f46e5;
   --accent-400: #6366f1;
   --accent-soft: rgba(99, 102, 241, 0.14);
+  --accent-glow: rgba(99, 102, 241, 0.35);
 
   --success-500: #059669;
   --success-soft: rgba(5, 150, 105, 0.14);
@@ -169,7 +171,27 @@ body {
     transition-duration: var(--motion-fast);
     transition-timing-function: var(--motion-ease-standard);
   }
+
+  .card-hover {
+    transition: transform var(--motion-fast) var(--motion-ease-standard), border-color var(--motion-fast) var(--motion-ease-standard), box-shadow var(--motion-fast) var(--motion-ease-standard);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--accent-400) 45%, var(--border-soft));
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .mesh-backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--accent-glow) 72%, transparent), transparent 38%), radial-gradient(circle at 80% 10%, color-mix(in oklab, var(--warning-soft) 82%, transparent), transparent 34%), linear-gradient(120deg, transparent 0%, color-mix(in oklab, var(--accent-soft) 40%, transparent) 50%, transparent 100%);
+    opacity: 0.78;
+  }
+
 }
+
 
 @media (min-width: 768px) {
   :root {

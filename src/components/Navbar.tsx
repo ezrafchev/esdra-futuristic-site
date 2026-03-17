@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Menu, Moon, Sun, X } from 'lucide-react'
+import { Menu, Moon, Sparkles, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 const navLinks = [
@@ -30,8 +30,9 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-[var(--space-container)] py-4">
-      <div className={`section-container flex items-center justify-between rounded-[var(--radius-card)] border px-5 py-3 transition ${scrolled ? 'glass-panel' : 'border bg-[var(--surface-2)]'}`}>
-        <Link href="/" className="text-sm font-semibold tracking-[0.24em]">
+      <div className={`section-container flex items-center justify-between rounded-[var(--radius-card)] border px-5 py-3 transition ${scrolled ? 'glass-panel' : 'border bg-[var(--surface-2)]/95'}`}>
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.24em]">
+          <Sparkles size={14} className="text-[var(--accent-400)]" />
           ESDRA STUDIO
         </Link>
 
@@ -41,11 +42,7 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <button
-            aria-label="Alternar tema"
-            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            className="rounded-full border p-2"
-          >
+          <button aria-label="Alternar tema" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="rounded-full border p-2">
             {mounted && theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
           </button>
           <a href="#contact" className="btn-primary px-4 py-2 text-sm">
