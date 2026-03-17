@@ -2,6 +2,7 @@
 
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { ArrowRight, ShieldCheck, Sparkles, Zap } from 'lucide-react'
+import { getHomeContent } from '@/content'
 import { useRef } from 'react'
 import Technologies from '@/components/Technologies'
 import Projects from '@/components/Projects'
@@ -10,18 +11,10 @@ import Goals from '@/components/Goals'
 import Contact from '@/components/Contact'
 import { motionTokens } from '@/lib/theme'
 
-const socialProof = [
-  { name: 'Atlas Ventures', metric: '+42% conversão em 90 dias' },
-  { name: 'Nexa Health', metric: '4.9/5 satisfação dos usuários' },
-  { name: 'Orion Labs', metric: '3x mais velocidade de entrega' },
-]
-
-const trustBadges = ['ISO-ready architecture', 'LGPD by design', 'Deploy contínuo monitorado']
-
-
 export default function Home() {
   const heroRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
+  const content = getHomeContent('pt')
 
   const pointerX = useMotionValue(50)
   const pointerY = useMotionValue(50)
@@ -76,12 +69,12 @@ export default function Home() {
         >
           <motion.div className="grid gap-10" variants={sequence} style={{ y: shouldReduceMotion ? 0 : messageYMotion }}>
             <p className="eyebrow inline-flex w-fit items-center gap-2 rounded-full border bg-[var(--accent-soft)] px-4 py-2">
-              <Sparkles size={14} /> Produto digital premium, do conceito à escala
+              <Sparkles size={14} /> {content.hero.eyebrow}
             </p>
             <div className="max-w-4xl">
-              <h1 className="title-display">Construímos experiências que elevam receita, confiança e velocidade de execução.</h1>
+              <h1 className="title-display">{content.hero.title}</h1>
               <p className="text-muted mt-6 max-w-2xl">
-                Estratégia de produto, design e engenharia full-cycle para transformar metas agressivas em crescimento previsível.
+                {content.hero.description}
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
@@ -91,7 +84,7 @@ export default function Home() {
                 whileHover={shouldReduceMotion ? {} : { y: -2, scale: 1.01 }}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.98, y: 0 }}
               >
-                Ver projetos estratégicos <ArrowRight size={17} />
+                {content.hero.primaryCta} <ArrowRight size={17} />
               </motion.a>
               <motion.a
                 href="#contact"
@@ -99,7 +92,7 @@ export default function Home() {
                 whileHover={shouldReduceMotion ? {} : { y: -2 }}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.98, y: 0 }}
               >
-                Agendar diagnóstico
+                {content.hero.secondaryCta}
               </motion.a>
             </div>
           </motion.div>
@@ -110,8 +103,8 @@ export default function Home() {
               <div className="absolute -bottom-12 left-8 h-32 w-32 rounded-full bg-[var(--success-soft)] blur-2xl" aria-hidden />
               <div className="relative grid gap-5 md:grid-cols-[1.2fr_0.8fr]">
                 <div className="token-card p-5">
-                  <p className="text-muted text-sm">Command Center</p>
-                  <p className="mt-3 text-xl font-semibold">Painel com visão em tempo real de funnel, receita e SLA operacional.</p>
+                  <p className="text-muted text-sm">{content.hero.commandCenterLabel}</p>
+                  <p className="mt-3 text-xl font-semibold">{content.hero.commandCenterDescription}</p>
                   <div className="mt-6 h-2 rounded-full bg-[var(--surface-glass)]">
                     <motion.div
                       className="h-full rounded-full bg-[var(--accent-500)]"
@@ -123,12 +116,12 @@ export default function Home() {
                 </div>
                 <div className="space-y-4">
                   <div className="token-card p-4">
-                    <p className="text-muted text-xs uppercase tracking-[0.16em]">Deployment confidence</p>
-                    <p className="mt-1 text-lg font-semibold">98.7%</p>
+                    <p className="text-muted text-xs uppercase tracking-[0.16em]">{content.hero.deploymentConfidenceLabel}</p>
+                    <p className="mt-1 text-lg font-semibold">{content.hero.deploymentConfidenceValue}</p>
                   </div>
                   <div className="token-card p-4">
-                    <p className="text-muted text-xs uppercase tracking-[0.16em]">Release cadence</p>
-                    <p className="mt-1 text-lg font-semibold">Semanal com rollback seguro</p>
+                    <p className="text-muted text-xs uppercase tracking-[0.16em]">{content.hero.releaseCadenceLabel}</p>
+                    <p className="mt-1 text-lg font-semibold">{content.hero.releaseCadenceValue}</p>
                   </div>
                 </div>
               </div>
@@ -141,7 +134,7 @@ export default function Home() {
             className="mt-10 flex flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-glass)] p-4 md:flex-row md:items-center md:justify-between md:p-5"
           >
             <div className="flex flex-wrap items-center gap-4 md:gap-6">
-              {socialProof.map((item) => (
+              {content.hero.socialProof.map((item) => (
                 <div key={item.name} className="min-w-[170px]">
                   <p className="text-sm font-semibold">{item.name}</p>
                   <p className="text-muted text-xs">{item.metric}</p>
@@ -149,24 +142,24 @@ export default function Home() {
               ))}
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              {trustBadges.map((badge) => (
+              {content.hero.trustBadges.map((badge) => (
                 <span key={badge} className="inline-flex items-center gap-2 rounded-full border border-[var(--border-soft)] px-3 py-1 text-xs text-[var(--neutral-200)]">
                   <ShieldCheck size={13} className="text-[var(--success-500)]" />
                   {badge}
                 </span>
               ))}
               <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border-soft)] px-3 py-1 text-xs text-[var(--accent-400)]">
-                <Zap size={13} /> Proof-driven delivery
+                <Zap size={13} /> {content.hero.proofDeliveryLabel}
               </span>
             </div>
           </motion.div>
         </motion.div>
       </section>
 
-      <Goals />
-      <Technologies />
-      <Projects />
-      <Blog />
+      <Goals content={content.goals} />
+      <Technologies content={content.technologies} />
+      <Projects content={content.projects} />
+      <Blog content={content.blog} />
       <Contact />
     </div>
   )

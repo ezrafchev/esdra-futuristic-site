@@ -1,37 +1,22 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { ProjectsContent } from '@/content'
 import { motionTokens } from '@/lib/theme'
 
-const projects = [
-  {
-    name: 'Fintech Growth Platform',
-    result: '+38% na taxa de conversão em onboarding',
-    summary: 'Reestruturação completa de front-end e motor de jornadas automatizadas para aquisição e retenção.',
-  },
-  {
-    name: 'SaaS B2B Intelligence Hub',
-    result: 'Redução de 52% no tempo de análise operacional',
-    summary: 'Plataforma de dashboards em tempo real com arquitetura modular e performance enterprise.',
-  },
-  {
-    name: 'E-commerce Premium Engine',
-    result: 'Aumento de 2.3x em receita por sessão',
-    summary: 'Experiência omnichannel com checkout otimizado, personalização e monitoramento de funil.',
-  },
-]
+interface ProjectsProps {
+  content: ProjectsContent
+}
 
-export default function Projects() {
+export default function Projects({ content }: ProjectsProps) {
   return (
     <section id="projects" className="section-shell">
       <div className="section-container">
-        <h2 className="title-headline">Projetos em destaque</h2>
-        <p className="text-muted mt-4 max-w-2xl">
-          Cases orientados por resultados mensuráveis, com impacto em experiência, eficiência operacional e crescimento de receita.
-        </p>
+        <h2 className="title-headline">{content.title}</h2>
+        <p className="text-muted mt-4 max-w-2xl">{content.description}</p>
 
         <div className="mt-10 space-y-5">
-          {projects.map((project, index) => (
+          {content.projects.map((project, index) => (
             <motion.article
               key={project.name}
               initial={{ opacity: 0, y: 18 }}

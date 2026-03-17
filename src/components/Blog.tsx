@@ -1,34 +1,22 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { BlogContent } from '@/content'
 import { motionTokens } from '@/lib/theme'
 
-const insights = [
-  {
-    title: 'Como construir produtos digitais com qualidade global',
-    excerpt: 'Framework prático para alinhar discovery, tecnologia e growth em um fluxo contínuo de valor.',
-  },
-  {
-    title: 'UX orientado a resultados: além da estética',
-    excerpt: 'Métodos para desenhar interfaces de alto desempenho sem comprometer clareza e acessibilidade.',
-  },
-  {
-    title: 'Arquitetura escalável para startups em crescimento acelerado',
-    excerpt: 'Decisões técnicas que evitam retrabalho, melhoram previsibilidade e sustentam expansão.',
-  },
-]
+interface BlogProps {
+  content: BlogContent
+}
 
-export default function Blog() {
+export default function Blog({ content }: BlogProps) {
   return (
     <section id="blog" className="section-shell">
       <div className="section-container">
-        <h2 className="title-headline">Insights estratégicos</h2>
-        <p className="text-muted mt-4 max-w-2xl">
-          Conteúdo técnico e executivo para decisões mais inteligentes em produto, design e engenharia.
-        </p>
+        <h2 className="title-headline">{content.title}</h2>
+        <p className="text-muted mt-4 max-w-2xl">{content.description}</p>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {insights.map((insight, index) => (
+          {content.highlights.map((insight, index) => (
             <motion.article
               key={insight.title}
               initial={{ opacity: 0, y: 18 }}
