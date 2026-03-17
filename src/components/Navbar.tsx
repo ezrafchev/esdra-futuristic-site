@@ -1,12 +1,14 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { Bot, Menu, Moon, Sparkles, Sun, X } from 'lucide-react'
+import { Bot, Menu, Moon, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 const navLinks = [
   { label: 'Sobre', href: '#about' },
+  { label: 'Serviços', href: '#services' },
   { label: 'Tecnologias', href: '#technologies' },
   { label: 'Projetos', href: '#projects' },
   { label: 'Insights', href: '#blog' },
@@ -34,8 +36,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 px-[var(--space-container)] py-4">
       <div className={`section-container flex items-center justify-between rounded-[var(--radius-card)] border px-5 py-3 transition ${scrolled ? 'glass-panel' : 'border bg-[var(--surface-2)]/95'}`}>
         <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.24em]">
-          <Sparkles size={14} className="text-[var(--accent-400)]" />
-          ESDRA STUDIO
+          <Image src="/esdra-icon.svg" alt="ESDRA" width={112} height={24} priority />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">

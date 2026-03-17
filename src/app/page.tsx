@@ -10,6 +10,7 @@ import Blog from '@/components/Blog'
 import Goals from '@/components/Goals'
 import Contact from '@/components/Contact'
 import InnovationLab from '@/components/InnovationLab'
+import ServicesCommerce from '@/components/ServicesCommerce'
 import RealtimeMetrics from '@/components/RealtimeMetrics'
 import ArchitectureShowcase from '@/components/ArchitectureShowcase'
 import { motionTokens } from '@/lib/theme'
@@ -172,6 +173,7 @@ export default function Home() {
       <ExecutionModel />
       <Technologies />
       <InnovationLab />
+      <ServicesCommerce />
       <RealtimeMetrics />
       <ArchitectureShowcase />
       <Projects />
