@@ -37,7 +37,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 px-[var(--space-container)] py-4">
       <div className={`section-container flex items-center justify-between rounded-[var(--radius-card)] border px-5 py-3 transition ${scrolled ? 'glass-panel' : 'border bg-[var(--surface-2)]/95'}`}>
         <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.24em]">
-          <Image src="/esdra-icon.svg" alt="ESDRA" width={112} height={24} priority />
+          <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/esdra-icon.svg`} alt="ESDRA" width={112} height={24} priority />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">

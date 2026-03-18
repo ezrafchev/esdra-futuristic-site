@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true'
+const basePath = isGithubActions ? '/esdra-futuristic-site' : ''
 
 const nextConfig = {
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -16,8 +20,8 @@ const nextConfig = {
     ? {
         output: 'export',
         trailingSlash: true,
-        basePath: '/esdra-futuristic-site',
-        assetPrefix: '/esdra-futuristic-site',
+        basePath,
+        assetPrefix: basePath,
       }
     : {}),
 }
