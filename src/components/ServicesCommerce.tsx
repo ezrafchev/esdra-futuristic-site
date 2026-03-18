@@ -80,6 +80,13 @@ export default function ServicesCommerce() {
         body: JSON.stringify({ planId, paymentMethod }),
       })
 
+      if (response.status === 404) {
+        // API not available (static export) — redirect to contact section
+        setCheckoutStatus('Pagamento online indisponível neste ambiente. Clique em "Fale pelo WhatsApp" para contratar.')
+        setLoadingPlan(null)
+        return
+      }
+
       if (!response.ok) {
         throw new Error('checkout_unavailable')
       }
@@ -181,6 +188,14 @@ export default function ServicesCommerce() {
               >
                 {loadingPlan === featuredService.id ? 'Abrindo checkout...' : 'Solicitar checkout de contratação'}
               </button>
+              <a
+                href="https://wa.me/5511999999999?text=Olá,%20quero%20contratar%20um%20serviço!"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary mt-2 flex w-full items-center justify-center gap-2 px-4 py-2 text-sm"
+              >
+                Fale pelo WhatsApp
+              </a>
             </div>
           </div>
 

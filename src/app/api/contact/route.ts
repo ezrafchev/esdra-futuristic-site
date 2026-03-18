@@ -5,6 +5,8 @@ export const runtime = 'edge'
 
 const contactSchema = z.object({
   name: z.string().min(2),
+  email: z.string().email(),
+  phone: z.string().optional(),
   company: z.string().min(2),
   budget: z.string().min(1),
   timeline: z.string().min(1),
